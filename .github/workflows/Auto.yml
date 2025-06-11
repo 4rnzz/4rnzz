@@ -1,0 +1,33 @@
+name: auto commit
+
+on:
+  schedule:
+    - cron: "0 0 * * *"  
+  workflow_dispatch:
+
+jobs:
+  spam_commit:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write
+
+    steps:
+      - name: Checkout repo
+        uses: actions/checkout@v4
+        with:
+          persist-credentials: true
+
+      - name: Set up git
+        run: |
+          git config --global user.name "github-actions[bot]"
+          git config --global user.email "41898282+github-actions[bot]@users.noreply.github.com"
+
+      - name: Create 100 commits with today's date
+        run: |
+          TODAY=$(date +'%Y-%m-%d')
+          for i in $(seq 1 100); do
+            echo "$TODAY commit $i" >> Commit.txt
+            git add Commit.txt
+            git commit -m "auto: $TODAY commit $i"
+          done
+          git push
