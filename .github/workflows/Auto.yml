@@ -19,8 +19,8 @@ jobs:
 
       - name: Set up git
         run: |
-          git config --global user.name "github-actions[bot]"
-          git config --global user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git config --global user.name "4rnzz"
+          git config --global user.email "sellrnzz@gmail.com"
 
       - name: Create 100 commits with today's date
         run: |
