@@ -7,36 +7,10 @@
 </picture>
 
 
-```python
-from typing import Tuple, List, Dict
-
-class Vex:
-    pass
-
-class Attributes(Vex):
-    @property
-    def contact(self) -> Tuple[str, str, str]:
-        discord  = "sanzmodder"
-        telegram = "t.me/onelanzz"
-	    
-	    return discord, telegram, proton
-
-    @property
-    def life(self) -> Tuple[List[str], int]:
-        langs = ['Indonesia', 'English', 'sundanese']
-        age   = 21
-		
-        return langs, age
-	
-    @property
-    def coding(self) -> Tuple[Dict[str, List[str]], List[str], List[str]]:
-        langs = {
-            'expert'      : ['python'],
-            'learning'    : ['java', 'js']
-        }
-        environnement = ['vscode']
-
-	return langs, environnement
+```js
+UnhandledPromiseRejectionWarning: Promise not resolved
+Reason: dia tak pernah kembali
+    at hati/penantian.js:87:21
 ```
 
 ![](http://github-profile-summary-cards.vercel.app/api/cards/profile-details?username=4rnzz&theme=dark)
