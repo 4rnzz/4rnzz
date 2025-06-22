@@ -1,4 +1,4 @@
-[![](https://count.getloli.com/get/@:4rnzz?theme=gelbooru-h)](https://mininxd.my.id)
+[![](https://count.getloli.com/get/@:4rnzz?theme=gelbooru-h)](https://xlanznet.site)
 
 
 <picture>
