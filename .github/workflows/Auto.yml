@@ -1,10 +1,10 @@
-name: full green graph
+name: chaotic green graph
 
 on:
-  workflow_dispatch:  # Bisa dijalankan manual dari GitHub UI
+  workflow_dispatch:  # Jalan manual saja, cukup sekali
 
 jobs:
-  fill_graph:
+  chaos_fill:
     runs-on: ubuntu-latest
     permissions:
       contents: write
@@ -16,17 +16,30 @@ jobs:
       - name: Set up git config
         run: |
           git config --global user.name "4rnzz"
-          git config --global user.email "sellrnzz@gmail.com"  # Pastikan email ini cocok dengan akun GitHub kamu
+          git config --global user.email "sellrnzz@gmail.com"  # Pastikan email cocok
 
-      - name: Generate backdated commits
+      - name: Generate chaotic commits
         run: |
           DAYS=365
           for i in $(seq 0 $DAYS); do
             DATE=$(date -d "$i days ago" +%Y-%m-%d)
-            echo "$DATE fake commit" >> Commit.txt
-            git add Commit.txt
-            GIT_COMMITTER_DATE="$DATE 12:00:00" \
-            GIT_AUTHOR_DATE="$DATE 12:00:00" \
-            git commit -m "auto backdated: $DATE"
+            
+            # 50% kemungkinan hari ini akan diisi commit
+            if [ $((RANDOM % 2)) -eq 0 ]; then
+              echo "Skipping $DATE"
+              continue
+            fi
+
+            # Kalau dipilih, commit sebanyak 5–50 kali
+            COUNT=$((RANDOM % 46 + 5))
+            echo "Committing $COUNT times for $DATE"
+
+            for j in $(seq 1 $COUNT); do
+              echo "$DATE chaos commit $j" >> Commit.txt
+              git add Commit.txt
+              GIT_COMMITTER_DATE="$DATE 12:00:00" \
+              GIT_AUTHOR_DATE="$DATE 12:00:00" \
+              git commit -m "chaos commit: $DATE #$j"
+            done
           done
           git push
