@@ -1,12 +1,10 @@
-name: auto commit
+name: full green graph
 
 on:
-  schedule:
-    - cron: "0 0 * * *"  
-  workflow_dispatch:
+  workflow_dispatch:  # Bisa dijalankan manual dari GitHub UI
 
 jobs:
-  spam_commit:
+  fill_graph:
     runs-on: ubuntu-latest
     permissions:
       contents: write
@@ -14,22 +12,21 @@ jobs:
     steps:
       - name: Checkout repo
         uses: actions/checkout@v4
-        with:
-          persist-credentials: true
 
-      - name: Set up git
+      - name: Set up git config
         run: |
           git config --global user.name "4rnzz"
-          git config --global user.email "sellrnzz@gmail.com"
+          git config --global user.email "sellrnzz@gmail.com"  # Pastikan email ini cocok dengan akun GitHub kamu
 
-      - name: Create random number of commits with today's date
+      - name: Generate backdated commits
         run: |
-          TODAY=$(date +'%Y-%m-%d')
-          COUNT=$(( RANDOM % 81 + 20 ))  # Random number between 20 and 100
-          echo "Creating $COUNT commits..."
-          for i in $(seq 1 $COUNT); do
-            echo "$TODAY commit $i" >> Commit.txt
+          DAYS=365
+          for i in $(seq 0 $DAYS); do
+            DATE=$(date -d "$i days ago" +%Y-%m-%d)
+            echo "$DATE fake commit" >> Commit.txt
             git add Commit.txt
-            git commit -m "auto: $TODAY commit $i"
+            GIT_COMMITTER_DATE="$DATE 12:00:00" \
+            GIT_AUTHOR_DATE="$DATE 12:00:00" \
+            git commit -m "auto backdated: $DATE"
           done
           git push
