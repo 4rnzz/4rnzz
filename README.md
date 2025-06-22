@@ -1,3 +1,4 @@
+[![](https://count.getloli.com/get/@:4rnzz?theme=gelbooru-h)](https://mininxd.my.id)
 
 
 <picture>
