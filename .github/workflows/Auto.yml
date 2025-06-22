@@ -1,16 +1,16 @@
-name: full chaos 2025
+name: chaos ultra 2025
 
 on:
   workflow_dispatch:
 
 jobs:
-  chaos_2025:
+  ultra_chaos:
     runs-on: ubuntu-latest
     permissions:
       contents: write
 
     steps:
-      - name: Checkout repo
+      - name: Checkout
         uses: actions/checkout@v4
 
       - name: Setup Git identity
@@ -18,34 +18,37 @@ jobs:
           git config --global user.name "4rnzz"
           git config --global user.email "sellrnzz@gmail.com"
 
-      - name: Generate chaotic commits for 2025
+      - name: Generate ultra chaotic commits for 2025
         run: |
-          # Mulai dari 1 Jan 2025 sampai hari ini
           START="2025-01-01"
           END=$(date +'%Y-%m-%d')
-
           current="$START"
-          while [ "$current" != "$END" ]; do
 
-            MODE=$((RANDOM % 5))  # 0 = kosong, 1–3 = normal, 4 = gila
-            if [ $MODE -eq 0 ]; then
-              echo "❌ $current → No commit"
-              current=$(date -I -d "$current + 1 day")
-              continue
-            elif [ $MODE -eq 4 ]; then
-              COUNT=$((RANDOM % 51 + 100))  # 100–150
-              echo "💥 $current → $COUNT insane commits!"
+          while [ "$current" != "$END" ]; do
+            MODE=$((RANDOM % 10))  # 0–4 kosong, 5–7 normal, 8–9 gila
+
+            if [ $MODE -lt 5 ]; then
+              COUNT=0
+            elif [ $MODE -lt 8 ]; then
+              COUNT=$((RANDOM % 26 + 5))   # 5–30
             else
-              COUNT=$((RANDOM % 21 + 10))   # 10–30
-              echo "✅ $current → $COUNT normal commits"
+              COUNT=$((RANDOM % 121 + 80)) # 80–200
             fi
 
-            for j in $(seq 1 $COUNT); do
-              echo "$current chaotic commit $j" >> Commit.txt
+            if [ $COUNT -eq 0 ]; then
+              echo "❌ $current → 0 commit"
+              current=$(date -I -d "$current + 1 day")
+              continue
+            fi
+
+            echo "🟩 $current → $COUNT commits"
+
+            for i in $(seq 1 $COUNT); do
+              echo "$current ultra commit $i" >> Commit.txt
               git add Commit.txt
               GIT_COMMITTER_DATE="$current 12:$((RANDOM % 60)):00" \
               GIT_AUTHOR_DATE="$current 12:$((RANDOM % 60)):00" \
-              git commit -m "chaos 2025: $current commit #$j"
+              git commit -m "🔥 ultra chaos: $current #$i"
             done
 
             current=$(date -I -d "$current + 1 day")
