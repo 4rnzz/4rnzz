@@ -1,7 +1,7 @@
-name: chaotic green graph
+name: super chaotic green graph
 
 on:
-  workflow_dispatch:  # Jalan manual saja, cukup sekali
+  workflow_dispatch:
 
 jobs:
   chaos_fill:
@@ -13,33 +13,37 @@ jobs:
       - name: Checkout repo
         uses: actions/checkout@v4
 
-      - name: Set up git config
+      - name: Setup Git identity
         run: |
           git config --global user.name "4rnzz"
-          git config --global user.email "sellrnzz@gmail.com"  # Pastikan email cocok
+          git config --global user.email "sellrnzz@gmail.com"
 
-      - name: Generate chaotic commits
+      - name: Generate commits with chaos
         run: |
           DAYS=365
           for i in $(seq 0 $DAYS); do
             DATE=$(date -d "$i days ago" +%Y-%m-%d)
             
-            # 50% kemungkinan hari ini akan diisi commit
-            if [ $((RANDOM % 2)) -eq 0 ]; then
-              echo "Skipping $DATE"
+            MODE=$((RANDOM % 5))  # 0 = kosong, 1–3 = normal, 4 = super gila
+
+            if [ $MODE -eq 0 ]; then
+              echo "❌ $DATE → No commit"
               continue
+            elif [ $MODE -eq 4 ]; then
+              COUNT=$((RANDOM % 51 + 100))  # 100–150 commit
+              echo "💥 $DATE → $COUNT insane commits!"
+            else
+              COUNT=$((RANDOM % 21 + 10))   # 10–30 commit
+              echo "✅ $DATE → $COUNT normal commits"
             fi
 
-            # Kalau dipilih, commit sebanyak 5–50 kali
-            COUNT=$((RANDOM % 46 + 5))
-            echo "Committing $COUNT times for $DATE"
-
             for j in $(seq 1 $COUNT); do
-              echo "$DATE chaos commit $j" >> Commit.txt
+              echo "$DATE chaotic commit $j" >> Commit.txt
               git add Commit.txt
-              GIT_COMMITTER_DATE="$DATE 12:00:00" \
-              GIT_AUTHOR_DATE="$DATE 12:00:00" \
-              git commit -m "chaos commit: $DATE #$j"
+              GIT_COMMITTER_DATE="$DATE 12:$((RANDOM % 60)):00" \
+              GIT_AUTHOR_DATE="$DATE 12:$((RANDOM % 60)):00" \
+              git commit -m "🔥 chaos: $DATE #$j"
             done
           done
+
           git push
