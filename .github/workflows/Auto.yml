@@ -1,56 +1,40 @@
-name: chaos ultra 2025
+name: full green 2025
 
 on:
   workflow_dispatch:
 
 jobs:
-  ultra_chaos:
+  green_2025:
     runs-on: ubuntu-latest
     permissions:
       contents: write
 
     steps:
-      - name: Checkout
+      - name: Checkout repo
         uses: actions/checkout@v4
 
-      - name: Setup Git identity
+      - name: Set Git identity
         run: |
           git config --global user.name "4rnzz"
           git config --global user.email "sellrnzz@gmail.com"
 
-      - name: Generate ultra chaotic commits for 2025
+      - name: Commit 200 times per day in 2025
         run: |
           START="2025-01-01"
-          END=$(date +'%Y-%m-%d')
+          END="2025-12-31"
           current="$START"
 
-          while [ "$current" != "$END" ]; do
-            MODE=$((RANDOM % 10))  # 0–4 kosong, 5–7 normal, 8–9 gila
+          touch Commit.txt
 
-            if [ $MODE -lt 5 ]; then
-              COUNT=0
-            elif [ $MODE -lt 8 ]; then
-              COUNT=$((RANDOM % 26 + 5))   # 5–30
-            else
-              COUNT=$((RANDOM % 121 + 80)) # 80–200
-            fi
-
-            if [ $COUNT -eq 0 ]; then
-              echo "❌ $current → 0 commit"
-              current=$(date -I -d "$current + 1 day")
-              continue
-            fi
-
-            echo "🟩 $current → $COUNT commits"
-
-            for i in $(seq 1 $COUNT); do
-              echo "$current ultra commit $i" >> Commit.txt
+          while [ "$current" != "$(date -I -d "$END + 1 day")" ]; do
+            echo "📅 $current → 200 commits"
+            for i in $(seq 1 200); do
+              echo "$current commit $i" >> Commit.txt
               git add Commit.txt
               GIT_COMMITTER_DATE="$current 12:$((RANDOM % 60)):00" \
               GIT_AUTHOR_DATE="$current 12:$((RANDOM % 60)):00" \
-              git commit -m "🔥 ultra chaos: $current #$i"
+              git commit -m "🔥 max green: $current #$i" > /dev/null
             done
-
             current=$(date -I -d "$current + 1 day")
           done
 
