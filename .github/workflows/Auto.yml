@@ -1,10 +1,10 @@
-name: super chaotic green graph
+name: full chaos 2025
 
 on:
   workflow_dispatch:
 
 jobs:
-  chaos_fill:
+  chaos_2025:
     runs-on: ubuntu-latest
     permissions:
       contents: write
@@ -18,32 +18,37 @@ jobs:
           git config --global user.name "4rnzz"
           git config --global user.email "sellrnzz@gmail.com"
 
-      - name: Generate commits with chaos
+      - name: Generate chaotic commits for 2025
         run: |
-          DAYS=365
-          for i in $(seq 0 $DAYS); do
-            DATE=$(date -d "$i days ago" +%Y-%m-%d)
-            
-            MODE=$((RANDOM % 5))  # 0 = kosong, 1–3 = normal, 4 = super gila
+          # Mulai dari 1 Jan 2025 sampai hari ini
+          START="2025-01-01"
+          END=$(date +'%Y-%m-%d')
 
+          current="$START"
+          while [ "$current" != "$END" ]; do
+
+            MODE=$((RANDOM % 5))  # 0 = kosong, 1–3 = normal, 4 = gila
             if [ $MODE -eq 0 ]; then
-              echo "❌ $DATE → No commit"
+              echo "❌ $current → No commit"
+              current=$(date -I -d "$current + 1 day")
               continue
             elif [ $MODE -eq 4 ]; then
-              COUNT=$((RANDOM % 51 + 100))  # 100–150 commit
-              echo "💥 $DATE → $COUNT insane commits!"
+              COUNT=$((RANDOM % 51 + 100))  # 100–150
+              echo "💥 $current → $COUNT insane commits!"
             else
-              COUNT=$((RANDOM % 21 + 10))   # 10–30 commit
-              echo "✅ $DATE → $COUNT normal commits"
+              COUNT=$((RANDOM % 21 + 10))   # 10–30
+              echo "✅ $current → $COUNT normal commits"
             fi
 
             for j in $(seq 1 $COUNT); do
-              echo "$DATE chaotic commit $j" >> Commit.txt
+              echo "$current chaotic commit $j" >> Commit.txt
               git add Commit.txt
-              GIT_COMMITTER_DATE="$DATE 12:$((RANDOM % 60)):00" \
-              GIT_AUTHOR_DATE="$DATE 12:$((RANDOM % 60)):00" \
-              git commit -m "🔥 chaos: $DATE #$j"
+              GIT_COMMITTER_DATE="$current 12:$((RANDOM % 60)):00" \
+              GIT_AUTHOR_DATE="$current 12:$((RANDOM % 60)):00" \
+              git commit -m "chaos 2025: $current commit #$j"
             done
+
+            current=$(date -I -d "$current + 1 day")
           done
 
           git push
