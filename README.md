@@ -7,8 +7,6 @@
 </picture>
 
 
-<h2 align="center">About Me<img src=https://cdn3.emoji.gg/emojis/2586-purplecrown.gif></h2>
-
 ```python
 from typing import Tuple, List, Dict
 
@@ -18,17 +16,15 @@ class Vex:
 class Attributes(Vex):
     @property
     def contact(self) -> Tuple[str, str, str]:
-        discord  = "vrxx.py"
-        telegram = "t.me/vrxx1337"
-        youtube  = "vrxxsobad1337"
-        email    = "vrxxdev@gmail.com"
+        discord  = "sanzmodder"
+        telegram = "t.me/onelanzz"
 	    
 	    return discord, telegram, proton
 
     @property
     def life(self) -> Tuple[List[str], int]:
-        langs = ['VietNam', 'English']
-        age   = 17
+        langs = ['Indonesia', 'English', 'sundanese']
+        age   = 21
 		
         return langs, age
 	
