@@ -30,6 +30,6 @@ jobs:
           for i in $(seq 1 $COUNT); do
             echo "$TODAY commit $i" >> commit.txt
             git add commit.txt
-            git commit -m ""
+            git commit -m "auto: $TODAY commit $i"
           done
           git push
