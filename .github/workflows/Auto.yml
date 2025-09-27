@@ -2,7 +2,7 @@ name: auto commit
 
 on:
   schedule:
-    - cron: "0 0 * * *"  
+    - cron: "0 0 * * *"  # jalan tiap jam 00:00 UTC (07:00 WIB)
   workflow_dispatch:
 
 jobs:
@@ -22,10 +22,10 @@ jobs:
           git config --global user.name "4rnzz"
           git config --global user.email "sellrnzz@gmail.com"
 
-      - name: Create random number of commits with today's date
+      - name: Create 200 commits with today's date
         run: |
           TODAY=$(date +'%Y-%m-%d')
-          COUNT=$(( RANDOM % 81 + 20 ))  # Random number between 20 and 100
+          COUNT=200
           echo "Creating $COUNT commits..."
           for i in $(seq 1 $COUNT); do
             echo "$TODAY commit $i" >> commit.txt
