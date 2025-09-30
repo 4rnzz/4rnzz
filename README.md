@@ -42,4 +42,3 @@ class Attributes(misquin):
 
 	return langs, environnement
 ```
-[![](https://count.getloli.com/get/@:4rnzz?theme=gelbooru-h)](https://xlanznet.site)
