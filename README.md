@@ -1,5 +1,5 @@
 <div align="center">
-  <img width="180" src="XEoms.png" alt="XEoms Logo" />
+  <img width="220" src="XEoms.png" alt="XEoms Logo" />
   
   # <img src="https://raw.githubusercontent.com/Tarikul-Islam-Anik/Animated-Fluent-Emojis/master/Emojis/Hand%20gestures/Waving%20Hand.png" alt="Waving Hand" width="35" height="35" /> Hi, I'm XEoms
   
