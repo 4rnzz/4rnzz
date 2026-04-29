@@ -4,7 +4,7 @@
   # <img src="https://raw.githubusercontent.com/Tarikul-Islam-Anik/Animated-Fluent-Emojis/master/Emojis/Hand%20gestures/Waving%20Hand.png" alt="Waving Hand" width="35" height="35" /> Hi, I'm XEoms
   
   <p>
-    <em>A passionate student developer from Indonesia</em><br>
+    <em>A passionate developer from Indonesia </em><br>
     <em>Fueled by matcha lattes and cat cuddles 🍵 🐱</em>
   </p>
   
